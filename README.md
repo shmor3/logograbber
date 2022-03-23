@@ -8,13 +8,15 @@ Python Web Crawler + Auto Data Entry Script
 - Selenium
 - BeautifulSoup
 
-Usaege:
+Usage:
+
+# Starts Full Scripts
 ```
-## Starts Full Scripts
 python3 logoSnatcher.py
 ```
+
+# Resizes All Images And Converts To .PNG
+# Place Images in '/data/todo' Exports to '/data/done' After Script Runs
 ```
-## Resizes All Images And Converts To .PNG
-## Place Images in ```/data/todo``` Exports to ```/data/done``` After Script Runs
 python3 resize.py
 ```
