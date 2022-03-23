@@ -14,6 +14,5 @@ for f in files:
         root, ext = os.path.splitext(f)
         basename = os.path.basename(root)
         img_resize.save(os.path.join(dst_dir, basename + '.png'))
-        print(img_resize.size)
     except OSError as e:
         pass

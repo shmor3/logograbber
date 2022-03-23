@@ -1,0 +1,2 @@
+---------ChromeDriver 99.0.4844.51 (2022-03-02)---------
+Supports Chrome version 99

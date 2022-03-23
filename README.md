@@ -20,6 +20,10 @@ Place Images in '/data/todo' Exports to '/data/done' After Script Runs
 ```
 python3 resize.py
 ```
+Send Web Requests, Finds Image, Then Downloads Images
+```
+python3 getImg.py
+````
 
 Specify Operating System Executable for Chrome Driver
 Options:
