@@ -7,9 +7,8 @@ from bs4 import BeautifulSoup
 from PIL import Image
 from selenium import webdriver
 
-
 def get_content_from_url(url):
-   driver = webdriver.Chrome()  # add "executable_path=" if driver not in running directory
+   driver = webdriver.Chrome(executable_path=r"./chromedriver-osx")
    driver.get(url)
    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
    page_content = driver.page_source
@@ -39,20 +38,20 @@ def get_and_save_image_to_file(image_url, output_dir):
    image = Image.open(image_file).convert("RGB")
    filename = hashlib.sha1(image_content).hexdigest()[:10] + ".png"
    file_path = output_dir / filename
-   image.save(file_path, "PNG", quality=80)
+   image.save(file_path, "PNG", quality=100)
 
 
 def main():
-   url = ""
+   url = "https://www.google.com"
    content = get_content_from_url(url)
    image_urls = parse_image_urls(
-       content=content, classes="blog-card__link", location="img", source="src",
+       content=content, classes="logo", location="img", source="src",
    )
    save_urls_to_csv(image_urls)
 
    for image_url in image_urls:
        get_and_save_image_to_file(
-           image_url, output_dir=pathlib.Path("nix/path/to/test"),
+           image_url, output_dir=pathlib.Path("./data/todo"),
        )
 
 
