@@ -1,6 +1,4 @@
-import os
-import requests
-import shutil
+import os, requests, shutil
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
