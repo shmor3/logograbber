@@ -1,6 +1,7 @@
 import os, glob, shutil
 from PIL import Image
 from dotenv import load_dotenv
+
 class resize():
     def webImg():
         load_dotenv()
@@ -20,7 +21,7 @@ class resize():
             except OSError as e:
                 pass
     def cleanUp():
-        folder = os.environ['tmpClear']
+        folder = os.environ['DL_Dir']
         for filename in os.listdir(folder):
             file_path = os.path.join(folder, filename)
             try:
