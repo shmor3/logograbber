@@ -40,10 +40,9 @@ class browser():
                 page = requests.get(search_result[0], proxies={"http": proxyfrrm, "https": proxyfrrm}, stream = True, headers={"User-agent": "Mozilla/5.0"})
                 tree = html.fromstring(page.content)
                 soup = BeautifulSoup(page.content, features="lxml")
-                with open(os.environ['urlListDir']), "a") as o:
-                    o.write(search_result[0])
-                print(search_result[0])
                 time.sleep(1)
+                urlList = open(os.environ['urlListDir'], "a")
+                urlList.write(search_result[0]+'\n')
+                urlList.close()
     search()
 browser()
-
