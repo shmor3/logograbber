@@ -1,0 +1,1 @@
+allflg01.zip allflg03.zip allimg01.zip allimg03.zip	allimg05.zip allimg07.zip allimg09.zip allflg02.zip allflg04.zip allimg02.zip allimg04.zip	allimg06.zip allimg08.zip allmisc.zip
