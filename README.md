@@ -11,7 +11,7 @@ Python Web Crawler + Auto Data Entry Script
 installation:
 
 ```
-pip3 install requests bs4 Pillow google python-dotenv
+pip3 install requests bs4 Pillow google python-dotenv lxml
 ```
 
 Usage:
