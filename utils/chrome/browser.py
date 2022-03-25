@@ -37,7 +37,7 @@ class browser():
                 query = '{}'.format(line.strip()) + ' ' + str(os.environ['advQuery'])
                 search_result = list(search(query, tld="co.in", num=1, stop=3, pause=2.0))
                 time.sleep(1)
-                page = requests.get(search_result[0], stream = True, proxies={"http": proxyfrrm, "https": proxyfrrm}, headers={"User-agent": "Mozilla/5.0"})
+                page = requests.get(search_result[0], stream = True, headers={"User-agent": "Mozilla/5.0"})
                 tree = html.fromstring(page.content)
                 soup = BeautifulSoup(page.content, features="lxml")
                 time.sleep(1)
