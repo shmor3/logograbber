@@ -12,10 +12,10 @@ class browser():
         for proxy in proxies:
             try:
                 proxyfrrm = 'http://' + str(proxy)
-                print(u'\u001b[33mChecking Proxy:\n', proxyfrrm, '\u001b[0m ---> ', str(os.environ['proxyTestUrl']))
+                print(u'\u001b[33mChecking Proxy:\n', proxyfrrm, '\u001b[0m --> ', str(os.environ['proxyTestUrl']))
                 time.sleep(1)
                 page = requests.get(os.environ['proxyTestUrl'], proxies={"http": proxyfrrm, "https": proxyfrrm})
-                print(u'\u001b[32mStatus OK, PASS:\n', proxyfrrm, '\u001b[36;1m --->', page.text)
+                print(u'\u001b[32mStatus OK, PASS:\n', proxyfrrm, '\u001b[36;1m <--', page.text)
                 pass
             except OSError as e:
                 print(u'\u001b[31mStatus -, FAIL:\n', proxyfrrm, '\u001b[0m\n', e)
@@ -35,9 +35,9 @@ class browser():
                 cnt += 1
                 print(u'--->', proxy, '\u001b[0mSearching:', '\u001b[0m|', '\u001b[33m{}'.format(line.strip()))
                 query = '{}'.format(line.strip()) + ' ' + str(os.environ['advQuery'])
-                search_result = list(search(query, tld="co.in", num=1, stop=3, pause=2.0))
+                search_result = list(search(query, tld="co.in", num=1, stop=10, pause=2))
                 time.sleep(1)
-                page = requests.get(search_result[0], stream = True, headers={"User-agent": "Mozilla/5.0"})
+                page = requests.get(search_result[0], stream = True, headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'})
                 tree = html.fromstring(page.content)
                 soup = BeautifulSoup(page.content, features="lxml")
                 time.sleep(1)
