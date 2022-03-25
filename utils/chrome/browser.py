@@ -16,6 +16,7 @@ class browser():
                 time.sleep(1)
                 page = requests.get(os.environ['proxyTestUrl'], proxies={"http": proxyfrrm, "https": proxyfrrm})
                 print(u'\u001b[32mStatus OK, PASS:\n', proxyfrrm, '\u001b[36;1m --->', page.text)
+                pass
             except OSError as e:
                 print(u'\u001b[31mStatus -, FAIL:\n', proxyfrrm, '\u001b[0m\n', e)
                 with open(prxyPth, "r+") as f:

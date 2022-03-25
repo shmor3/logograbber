@@ -8,11 +8,17 @@ Python Web Crawler + Auto Data Entry Script
 - Selenium
 - BeautifulSoup
 
+installation:
+
+```
+pip3 install csv requests shutil bs4 dotenv Pillow
+```
+
 Usage:
 
 Starts Full Scripts
 ```
-python3 logoSnatcher.py
+python3 sealsnatcher.py
 ```
 
 Resizes All Images And Converts To .PNG
