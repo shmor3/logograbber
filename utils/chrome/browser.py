@@ -15,9 +15,9 @@ class browser():
                 print(u'\u001b[33mChecking Proxy:\n', proxyfrrm, '\u001b[0m ---> ', str(os.environ['proxyTestUrl']))
                 time.sleep(1)
                 page = requests.get(os.environ['proxyTestUrl'], proxies={"http": proxyfrrm, "https": proxyfrrm})
-                print(u'\u001b[32mStatus OK, PASS:\n', proxyfrrm, '\u001b[0m ---> ', page.text)
+                print(u'\u001b[32mStatus OK, PASS:\n', proxyfrrm, '\u001b[36;1m --->', page.text)
             except OSError as e:
-                print(u'\u001b[31mStatus -, FAIL:\n', proxyfrrm, '\u001b[0m ---> ', e)
+                print(u'\u001b[31mStatus -, FAIL:\n', proxyfrrm, '\u001b[0m\n', e)
                 with open(prxyPth, "r+") as f:
                     d = f.readlines()
                     f.seek(0)
