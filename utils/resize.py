@@ -11,13 +11,12 @@ class resize():
         for f in files:
             try:
                 img = Image.open(f)
-                print(img.size)
                 img_resize = img.resize((int(os.environ['width']), int(os.environ['height'])))
                 root, ext = os.path.splitext(f)
                 basename = os.path.basename(root)
                 imgName = os.path.join(dst_dir, basename + os.environ['saveImgAs'])
                 img_resize.save(imgName)
-                print('Resize Successful')
+                print(u'\u001b[32mResize Successful\n')
             except OSError as e:
                 pass
     def cleanUp():
@@ -29,8 +28,9 @@ class resize():
                     os.unlink(file_path)
                 elif os.path.isdir(file_path):
                     shutil.rmtree(file_path)
-                print('Cleanup Successful')    
+                print('\u001b[32mCleanup Successful\n')    
             except Exception as e:
+                print(u'\u001b[31mCleanup Failed\n')
                 pass
     webImg()
     cleanUp()

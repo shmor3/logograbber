@@ -5,20 +5,19 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 load_dotenv()
-proxies = {
-    'http://93.117.72.27:43631'
-    'http://200.105.215.18:33630',
-    'http://8.214.41.50:80',
-    'http://63.151.67.7:8080',
-    'http://103.148.72.192:80',
-    'http://77.236.238.179:8080',
-    'http://45.172.108.39:999',
-    'http://46.209.30.12:8080',
-    'http://62.75.229.155:5566'
-    }
-
+prxyPth = str(os.environ['proxyList'])
+proxies = tuple(open(prxyPth, 'r'))
 class browser():
     def search():
+        for proxy in proxies:
+            try:
+                proxyfrrm = 'http://' + str(proxy) + ','
+                print(u'\u001b[33mChecking Proxy:\n', proxyfrrm, '\u001b[0m ---> ', str(os.environ['proxyTestUrl']))
+                time.sleep(1)
+                page = requests.get(os.environ['proxyTestUrl'], proxies={"http": proxyfrrm, "https": proxyfrrm})
+                print(u'\u001b[32mStatus OK, PASS:\n', proxyfrrm, '\u001b[0m ---> ', page.text)
+            except OSError as e:
+                print(u'\u001b[31mStatus -, FAIL:\n', proxyfrrm, '\u001b[0m ---> ', e)
         filepath = str(os.environ['list'])
         with open(filepath) as fp:
             line = fp.readline()
@@ -26,11 +25,14 @@ class browser():
             while line:
                 line = fp.readline()
                 cnt += 1
-        query = '{}'.format(line.strip()) + ' ' + str(os.environ['advQuery'])
-        search_result = list(search(query, tld="co.in", num=1, stop=3, pause=2.0))
-        print(proxies)
-        page = requests.get('https://ipecho.net/plain', stream = True, headers={"User-agent": "Mozilla/5.0"}, proxies={"http": proxies, "https": proxies})
-        tree = html.fromstring(page.content)
-        soup = BeautifulSoup(page.content, features="lxml")
+                print(u'--->', proxy, '\u001b[0mSearching:', '\u001b[0m|', '\u001b[33m{}'.format(line.strip()))
+                query = '{}'.format(line.strip()) + ' ' + str(os.environ['advQuery'])
+                search_result = list(search(query, tld="co.in", num=1, stop=3, pause=2.0))
+                time.sleep(1)
+                page = requests.get(search_result[0], proxies={"http": proxyfrrm, "https": proxyfrrm}, stream = True, headers={"User-agent": "Mozilla/5.0"})
+                tree = html.fromstring(page.content)
+                soup = BeautifulSoup(page.content, features="lxml")
+                os.putenv("url_ending", search_result[0].replace('https://www.crwflags.com',''))
+                print(search_result[0].replace('https://www.crwflags.com','') + str(os.environ['url_ending']))
     search()
 browser()
