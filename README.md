@@ -11,7 +11,7 @@ Python Web Crawler + Auto Data Entry Script
 installation:
 
 ```
-pip3 install csv requests shutil bs4 dotenv Pillow
+pip3 install requests bs4 Pillow google python-dotenv
 ```
 
 Usage:
@@ -39,4 +39,22 @@ Options:
 
 ```
    driver = webdriver.Chrome(executable_path=r"./chromedriver-osx")
+```
+
+.env sample
+```
+proxyTestUrl=https://ipecho.net/plain
+url_ending=
+base_url=https://www.crwflags.com
+advQuery=site:www.crwflags.com inurl:/fotw/flags/
+keywordList=./data/cities
+width=150
+height=150
+saveImgAs=.png
+src=src
+alt=[City Seal]
+img=img
+DL_Dir=./tmp/todo
+done=./tmp/done
+proxyList=./data/proxy
 ```
