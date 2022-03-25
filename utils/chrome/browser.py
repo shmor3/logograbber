@@ -11,14 +11,21 @@ class browser():
     def search():
         for proxy in proxies:
             try:
-                proxyfrrm = 'http://' + str(proxy) + ','
+                proxyfrrm = 'http://' + str(proxy)
                 print(u'\u001b[33mChecking Proxy:\n', proxyfrrm, '\u001b[0m ---> ', str(os.environ['proxyTestUrl']))
                 time.sleep(1)
                 page = requests.get(os.environ['proxyTestUrl'], proxies={"http": proxyfrrm, "https": proxyfrrm})
                 print(u'\u001b[32mStatus OK, PASS:\n', proxyfrrm, '\u001b[0m ---> ', page.text)
             except OSError as e:
                 print(u'\u001b[31mStatus -, FAIL:\n', proxyfrrm, '\u001b[0m ---> ', e)
-        filepath = str(os.environ['list'])
+                with open(prxyPth, "r+") as f:
+                    d = f.readlines()
+                    f.seek(0)
+                    for i in d:
+                        if i != str(proxy):
+                            f.write(i)
+                            f.truncate()
+        filepath = str(os.environ['ketwordList'])
         with open(filepath) as fp:
             line = fp.readline()
             cnt = 1
