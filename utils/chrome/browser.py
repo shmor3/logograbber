@@ -7,6 +7,12 @@ from dotenv import load_dotenv
 load_dotenv()
 prxyPth = str(os.environ['proxyList'])
 proxies = tuple(open(prxyPth, 'r'))
+
+from http import cookiejar  # Python 2: import cookielib as cookiejar
+class BlockAll(cookiejar.CookiePolicy):
+    return_ok = set_ok = domain_return_ok = path_return_ok = lambda self, *args, **kwargs: False
+    netscape = True
+    rfc2965 = hide_cookie2 = False
 class browser():
     def search():
         for proxy in proxies:
@@ -37,7 +43,8 @@ class browser():
                 query = '{}'.format(line.strip()) + ' ' + str(os.environ['advQuery'])
                 search_result = list(search(query, tld="co.in", num=1, stop=10, pause=2))
                 time.sleep(1)
-                page = requests.get(search_result[0], stream = True, headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'})
+                page = requests.get(search_result[0], stream = True, headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'}).cookies.set_policy(BlockAll())
+                assert not page.cookies
                 tree = html.fromstring(page.content)
                 soup = BeautifulSoup(page.content, features="lxml")
                 time.sleep(1)
