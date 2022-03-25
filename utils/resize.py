@@ -6,9 +6,10 @@ class resize():
     def webImg():
         load_dotenv()
         dst_dir = str(os.environ['done'])
+        dl_Dir = str(os.environ['dl_Dir'])
         os.makedirs(dst_dir, exist_ok=True)
         os.makedirs(dl_Dir, exist_ok=True)
-        
+
         files = glob.glob(str(os.environ['DL_Dir'] + '/*'))
         for f in files:
             try:
