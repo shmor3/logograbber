@@ -26,7 +26,7 @@ class browser():
                         if i != str(proxy):
                             f.write(i)
                             f.truncate()
-        filepath = str(os.environ['ketwordList'])
+        filepath = str(os.environ['keywordList'])
         with open(filepath) as fp:
             line = fp.readline()
             cnt = 1
@@ -40,7 +40,8 @@ class browser():
                 page = requests.get(search_result[0], proxies={"http": proxyfrrm, "https": proxyfrrm}, stream = True, headers={"User-agent": "Mozilla/5.0"})
                 tree = html.fromstring(page.content)
                 soup = BeautifulSoup(page.content, features="lxml")
-                os.putenv("url_ending", search_result[0].replace('https://www.crwflags.com',''))
+                os.putenv("url_ending", search_result[0].replace(os.environ['base_url'],''))
                 print(search_result[0].replace('https://www.crwflags.com','') + str(os.environ['url_ending']))
+                time.sleep(1)
     search()
 browser()
