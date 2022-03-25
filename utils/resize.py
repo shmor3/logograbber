@@ -8,6 +8,7 @@ class resize():
         dst_dir = str(os.environ['done'])
         os.makedirs(dst_dir, exist_ok=True)
         os.makedirs(dl_Dir, exist_ok=True)
+        
         files = glob.glob(str(os.environ['DL_Dir'] + '/*'))
         for f in files:
             try:
