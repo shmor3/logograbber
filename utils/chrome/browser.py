@@ -1,24 +1,25 @@
 import os, requests, time
-from lxml import html
 from googlesearch import search
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 load_dotenv()
 prxyPth = str(os.environ['proxyList'])
-proxies = tuple(open(prxyPth, 'r'))
+proxiesList = tuple(open(prxyPth, 'r'))
 class browser():
     def search():
-        for proxy in proxies:
+        for proxy in proxiesList:
             try:
                 proxyfrrm = 'http://' + str(proxy)
-                print(u'\u001b[33mChecking Proxy:\n', proxyfrrm, '\u001b[0m --> ', str(os.environ['proxyTestUrl']))
+                print(u'\n\u001b[33mChecking Proxy:\n', proxyfrrm)
                 time.sleep(1)
-                page = requests.get(os.environ['proxyTestUrl'], proxies={"http": proxyfrrm, "https": proxyfrrm})
-                print(u'\u001b[32mStatus OK, PASS:\n', proxyfrrm, '\u001b[36;1m <--', page.text)
+                proxPage = requests.get(os.environ['proxyTestUrl'], proxies = {"http": proxyfrrm, "https": proxyfrrm})
+                time.sleep(1)
+                print(u'\n\u001b[32mStatus',proxPage.status_code,'OK','PASS:\n', '\u001b[36;1mProxy IP', proxPage.text)
+                proxyOk = proxyfrrm
                 pass
             except OSError as e:
-                print(u'\u001b[31mStatus -, FAIL:\n', proxyfrrm, '\u001b[0m\n', e)
+                print(u'\n\u001b[31mStatus',e,'FAIL:\n', proxyfrrm, '\u001b[0m\n')
                 with open(prxyPth, "r+") as f:
                     d = f.readlines()
                     f.seek(0)
@@ -33,18 +34,25 @@ class browser():
             while line:
                 line = fp.readline()
                 cnt += 1
-                print(u'::', proxy, '\u001b[0mSearching:', '\u001b[0m|', '\u001b[33m{}'.format(line.strip()))
-                query = '{}'.format(line.strip()) + ' ' + str(os.environ['advQuery'])
-                search_result = list(search(query, tld="co.in", num=1, stop=1, pause=2))
-                time.sleep(1)
-                page = requests.get(search_result[0], stream = True, proxies={"http": proxyfrrm, "https": proxyfrrm}, headers = {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'
-                    })
-                tree = html.fromstring(page.content)
-                soup = BeautifulSoup(page.content, features="lxml")
-                time.sleep(1)
-                urlList = open(os.environ['urlListDir'], "a")
-                urlList.write(search_result[0].replace('https://www.crwflags.com/fotw/flags/','')+'\n')
-                urlList.close()
+                try:
+                    query = '{}'.format(line.strip()) + ' ' + str(os.environ['advQuery'])
+                    print(u'\n', str(proxyOk) + ' ->', 'google.com|' + str(query), '\n\u001b[36;1mSearching:', '\u001b[0m|', '\u001b[33m{}\n'.format(line.strip()))
+                    search_result = list(search(query, tld="com", num=1, stop=1, pause=10))
+                    time.sleep(1)
+                    page = requests.get(search_result[0], proxies = {"http": proxyfrrm, "https": proxyfrrm})
+                    print(page.status_code)
+                    time.sleep(1)
+                    soup = BeautifulSoup(page.content, 'html.parser')
+                    time.sleep(1)
+                    print(soup)
+                    urlList = open(os.environ['urlListDir'], "a")
+                    urlList.write(search_result[0].replace('https://www.crwflags.com/fotw/flags/','')+'\n')
+                    urlList.close()
+                    print(u'\u001b[32mAdded', '{}'.format(line.strip()))
+                    print(u'\n', page.status_code, 'Too Many Requests','Retrying After:' + str(page.headers["Retry-After"]) + 's')
+                    time.sleep(int(page.headers["Retry-After"]))
+                except OSError as e:
+                    print(u'\n\u001b[31mCritical Error\n', e)
+                    time.sleep(1)
     search()
 browser()
