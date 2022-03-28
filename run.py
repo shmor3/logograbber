@@ -7,7 +7,7 @@ from PIL import Image
 load_dotenv()
 class sealsnatcher():
     def search():
-        prxyPth = str(os.environ['proxyList'], proxies={"http": proxyfrrm, "https": proxyfrrm})
+        prxyPth = str(os.environ['proxyList'])
         proxiesList = tuple(open(prxyPth, 'r'))
         for proxy in proxiesList:
             try:
