@@ -12,7 +12,7 @@ class sealsnatcher():
             try:
                 proxyfrrm = 'http://' + str(proxy)
                 print(u'\n\u001b[33mChecking Proxy:\n', proxyfrrm)
-                proxPage = requests.get(os.environ['proxyTestUrl'], proxies={"http": proxyfrrm, "https": proxyfrrm}, headers={"User-agent": "Mozilla/5.0"})
+                proxPage = requests.get(os.environ['proxyTestUrl'], headers={"User-agent": "Mozilla/5.0"})
                 time.sleep(1)
                 print(u'\n\u001b[32mStatus',proxPage.status_code,'OK','PASS:\n', '\u001b[36;1mProxy IP', proxPage.text)
             except OSError as e:
@@ -39,7 +39,6 @@ class sealsnatcher():
                 urlList.close()
             except OSError as e:
                 print('SEARCH ERROR', e)
-    search()
     def dlImg():
         urlList = tuple(open(str(os.environ['urlListDir']), 'r'))
         for url in urlList:
