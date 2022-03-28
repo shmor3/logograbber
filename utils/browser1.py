@@ -6,6 +6,6 @@ url = 'https://www.crwflags.com/fotw/flags/us-co-dv.html'
 page = requests.get(url)
 soup = BeautifulSoup(page.content)
 soupd = soup.find('img', alt='[City Seal]')
-soupd =
+soupf = soup.attrs['src']
 
-print(u'\u001b[32m', soupd, '\n')
+print(u'\u001b[32m', soupf, '\n')
