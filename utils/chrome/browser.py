@@ -53,6 +53,6 @@ class browser():
                     time.sleep(int(page.headers["Retry-After"]))
                 except OSError as e:
                     print(u'\n\u001b[31mCritical Error\n', e)
-                    time.sleep(1)
+                    browser()
     search()
 browser()
