@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 load_dotenv()
-urlListPath = ['us-co-dv.html']
+urlListPath = os.environ('urlListDir')
 urlList = tuple(open(urlListPath, 'r'))
 class getImg():
     def opera():

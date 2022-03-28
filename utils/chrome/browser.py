@@ -39,14 +39,15 @@ class browser():
                     search_result = list(search(query, tld="com", num=1, stop=1, pause=10))
                     time.sleep(1)
                     page = requests.get(search_result[0])
+                    pageRes = str(search_result[0]).lower
                     time.sleep(1)
                     print(u'\n\u001b[32mStatus',page.status_code,'OK','PASS')
                     urlList = open(os.environ['urlListDir'], "a")
-                    urlList.write(search_result[0].replace('https://www.crwflags.com/fotw/flags/','')+'\n')
+                    urlList.write(pageRes.replace('https://www.crwflags.com/fotw/flags/','')+'\n')
                     urlList.close()
                     print(u'\u001b[32mAdded', '{}'.format(line.strip()))
                 except OSError as e:
                     print(u'\n\u001b[31mCritical Error\n', e)
-                    browser()
+                    exit()
     search()
 browser()
