@@ -13,7 +13,7 @@ class sealsnatcher():
                 proxyfrrm = 'http://' + str(proxy)
                 print(u'\n\u001b[33mChecking Proxy:\n', proxyfrrm)
                 time.sleep(1)
-                proxPage = requests.get(os.environ['proxyTestUrl'])
+                proxPage = requests.get(os.environ['proxyTestUrl'], proxies={"http": proxyfrrm, "https": proxyfrrm}, headers={"User-agent": "Mozilla/5.0"})
                 time.sleep(1)
                 print(u'\n\u001b[32mStatus',proxPage.status_code,'OK','PASS:\n', '\u001b[36;1mProxy IP', proxPage.text)
             except OSError as e:
@@ -32,14 +32,14 @@ class sealsnatcher():
                 print(u'\n', '\u001b[32m@' + 'google.com|' + str(query), '\n\u001b[36;1mSearching:', '\u001b[33m')
                 search_result = list(search(query, tld="com", num=1, stop=1, pause=10))
                 time.sleep(1)
-                page = requests.get(search_result[0])
+                page = requests.get(search_result[0], proxies={"http": proxyfrrm, "https": proxyfrrm}, headers={"User-agent": "Mozilla/5.0"})
                 search.u = str(search_result[0]).replace('https://www.crwflags.com/fotw/flags/', '')
                 print(u'\n\u001b[32mStatus', page.status_code, 'OK', 'PASS')
                 urlList = open(os.environ['urlListDir'], "a")
                 urlList.write(str(search.u).replace('https://www.crwflags.com/fotw/flags/','')+'\n')
                 urlList.close()
-            except:
-                print('SEARCH ERROR')
+            except OSError as e:
+                print('SEARCH ERROR', e)
     search()
     def dlImg():
         urlList = tuple(open(str(os.environ['urlListDir']), 'r'))
@@ -80,8 +80,8 @@ class sealsnatcher():
                 else:
                     print(u'\n\u001b[31mDownload Failed')
                     pass
-            except:
-                print('DOWNLOAD ERROR')
+            except OSError as e:
+                print('DOWNLOAD ERROR', e)
     dlImg()
     def sizeImg():
         dst_dir = str(os.environ['done'])
@@ -97,7 +97,7 @@ class sealsnatcher():
                 img_resize.save(imgName)
                 print(u'\n\u001b[32mResize Successful')
             except OSError as e:
-                print('RESIZE ERROR')
+                print('RESIZE ERROR', e)
                 pass
     sizeImg()
     def cleanUpDir():
@@ -110,8 +110,8 @@ class sealsnatcher():
                 elif os.path.isdir(file_path):
                     shutil.rmtree(file_path)
                 print('\n\u001b[32mCleanup Successful\n')    
-            except Exception as e:
-                print(u'\n\u001b[31mCleanup Failed\n')
+            except OSError as e:
+                print(u'\n\u001b[31mCleanup Failed\n', e)
                 pass
     cleanUpDir()
 sealsnatcher()
