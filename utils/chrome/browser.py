@@ -16,7 +16,6 @@ class browser():
                 proxPage = requests.get(os.environ['proxyTestUrl'], proxies = {"http": proxyfrrm, "https": proxyfrrm})
                 time.sleep(1)
                 print(u'\n\u001b[32mStatus',proxPage.status_code,'OK','PASS:\n', '\u001b[36;1mProxy IP', proxPage.text)
-                proxyOk = proxyfrrm
                 pass
             except OSError as e:
                 print(u'\n\u001b[31mStatus',e,'FAIL:\n', proxyfrrm, '\u001b[0m\n')
@@ -36,7 +35,7 @@ class browser():
                 cnt += 1
                 try:
                     query = '{}'.format(line.strip()) + ' ' + str(os.environ['advQuery'])
-                    print(u'\n', str(proxyOk) + ' ->', 'google.com|' + str(query), '\n\u001b[36;1mSearching:', '\u001b[0m|', '\u001b[33m{}\n'.format(line.strip()))
+                    print(u'\n', str(proxyfrrm) + ' ->', 'google.com|' + str(query), '\n\u001b[36;1mSearching:', '\u001b[0m|', '\u001b[33m{}\n'.format(line.strip()))
                     search_result = list(search(query, tld="com", num=1, stop=1, pause=10))
                     time.sleep(1)
                     page = requests.get(search_result[0])
