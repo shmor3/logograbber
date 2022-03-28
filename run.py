@@ -14,10 +14,9 @@ class sealsnatcher():
                 proxyfrrm = 'http://' + str(proxy)
                 print(u'\n\u001b[33mChecking Proxy:\n', proxyfrrm)
                 time.sleep(1)
-                proxPage = requests.get(os.environ['proxyTestUrl'])
+                proxPage = requests.get(os.environ['proxyTestUrl'], proxies={"http": proxyfrrm, "https": proxyfrrm})
                 time.sleep(1)
                 print(u'\n\u001b[32mStatus',proxPage.status_code,'OK','PASS:\n', '\u001b[36;1mProxy IP', proxPage.text)
-                pass
             except OSError as e:
                 print(u'\n\u001b[31mStatus',e,'FAIL:\n', proxyfrrm, '\u001b[0m\n')
                 with open(prxyPth, "r+") as f:
