@@ -45,7 +45,6 @@ class browser():
                     urlList.write(search_result[0].replace('https://www.crwflags.com/fotw/flags/','')+'\n')
                     urlList.close()
                     print(u'\u001b[32mAdded', '{}'.format(line.strip()))
-                    time.sleep(int(page.headers["Retry-After"]))
                 except OSError as e:
                     print(u'\n\u001b[31mCritical Error\n', e)
                     browser()
