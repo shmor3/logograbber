@@ -1,4 +1,4 @@
-import time, os, requests, shutil, glob, re, lxml, csv, urllib.parse
+import time, os, requests, shutil, glob, re, lxml, csv, urllib.parse, multiprocessing
 from googlesearch import search
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
@@ -12,7 +12,6 @@ class sealsnatcher():
             try:
                 proxyfrrm = 'http://' + str(proxy)
                 print(u'\n\u001b[33mChecking Proxy:\n', proxyfrrm)
-                time.sleep(1)
                 proxPage = requests.get(os.environ['proxyTestUrl'], proxies={"http": proxyfrrm, "https": proxyfrrm}, headers={"User-agent": "Mozilla/5.0"})
                 time.sleep(1)
                 print(u'\n\u001b[32mStatus',proxPage.status_code,'OK','PASS:\n', '\u001b[36;1mProxy IP', proxPage.text)
@@ -32,7 +31,7 @@ class sealsnatcher():
                 print(u'\n', '\u001b[32m@' + 'google.com|' + str(query), '\n\u001b[36;1mSearching:', '\u001b[33m')
                 search_result = list(search(query, tld="com", num=1, stop=1, pause=10))
                 time.sleep(1)
-                page = requests.get(search_result[0], proxies={"http": proxyfrrm, "https": proxyfrrm}, headers={"User-agent": "Mozilla/5.0"})
+                page = requests.get(search_result[0], headers={"User-agent": "Mozilla/5.0"})
                 search.u = str(search_result[0]).replace('https://www.crwflags.com/fotw/flags/', '')
                 print(u'\n\u001b[32mStatus', page.status_code, 'OK', 'PASS')
                 urlList = open(os.environ['urlListDir'], "a")
