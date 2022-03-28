@@ -13,7 +13,7 @@ class browser():
                 proxyfrrm = 'http://' + str(proxy)
                 print(u'\n\u001b[33mChecking Proxy:\n', proxyfrrm)
                 time.sleep(1)
-                proxPage = requests.get(os.environ['proxyTestUrl'], proxies = {"http": proxyfrrm, "https": proxyfrrm})
+                proxPage = requests.get(os.environ['proxyTestUrl'])
                 time.sleep(1)
                 print(u'\n\u001b[32mStatus',proxPage.status_code,'OK','PASS:\n', '\u001b[36;1mProxy IP', proxPage.text)
                 pass
@@ -40,10 +40,11 @@ class browser():
                     time.sleep(1)
                     page = requests.get(search_result[0])
                     pageRes = str(search_result[0]).lower
+                    print(pageRes)
                     time.sleep(1)
                     print(u'\n\u001b[32mStatus',page.status_code,'OK','PASS')
                     urlList = open(os.environ['urlListDir'], "a")
-                    urlList.write(pageRes.replace('https://www.crwflags.com/fotw/flags/','')+'\n')
+                    urlList.write(str(pageRes).replace('https://www.crwflags.com/fotw/flags/','')+'\n')
                     urlList.close()
                     print(u'\u001b[32mAdded', '{}'.format(line.strip()))
                 except OSError as e:

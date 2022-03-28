@@ -3,16 +3,17 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 load_dotenv()
-urlListPath = os.environ('urlListDir')
+urlListPath = os.environ['urlListDir']
 urlList = tuple(open(urlListPath, 'r'))
 class getImg():
     def opera():
-        for url in urlList:
+        for urlL in urlList:
             try:
-                urlfrrm = str(url)
-                print(url)
+                urlfrrm = str(urlL)
+                print(urlL)
                 baseUrl = str(os.environ['baseUrl'])
                 url = str(os.environ['baseUrl']) + str(os.environ['urlEnding']) + urlfrrm
+                print(url)
                 output_dir = os.environ['dlDir']     
                 time.sleep(1)
                 page = requests.get(url, stream = True)
@@ -22,7 +23,6 @@ class getImg():
                 filename = imgUrl.split("/")[-1]
                 print(imgUrl)
                 print(souf)
-                print('Image Found')
                 time.sleep(1)
                 r = requests.get(imgUrl, stream = True)
                 if r.status_code == 200:
