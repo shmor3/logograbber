@@ -39,7 +39,7 @@ class browser():
                     print(u'\n', str(proxyOk) + ' ->', 'google.com|' + str(query), '\n\u001b[36;1mSearching:', '\u001b[0m|', '\u001b[33m{}\n'.format(line.strip()))
                     search_result = list(search(query, tld="com", num=1, stop=1, pause=10))
                     time.sleep(1)
-                    page = requests.get(search_result[0], proxies = {"http": proxyfrrm, "https": proxyfrrm})
+                    page = requests.get(search_result[0])
                     print(page.status_code)
                     time.sleep(1)
                     soup = BeautifulSoup(page.content, 'html.parser')
