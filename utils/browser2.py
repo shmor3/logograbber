@@ -1,8 +1,6 @@
-import requests, os
+import requests, os, re, urllib.parse, lxml
 from dotenv import load_dotenv
-import urllib.parse
 from bs4 import BeautifulSoup
-import re
 
 load_dotenv()
 
@@ -15,7 +13,7 @@ headers = {'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,imag
 
 
 data = requests.get('http://duckduckgo.com/html/?q=' + urllib.parse.quote_plus(str(os.environ['keyword']) + ' ' + str(os.environ['advQuery'])), headers=headers)
-parsed = BeautifulSoup(data.content)
+parsed = BeautifulSoup(data.content, 'lxml')
 
 first_link = parsed.findAll('div', {'class': re.compile('links_main*')})[0].a['href']
 print(first_link)
