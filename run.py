@@ -45,17 +45,17 @@ class sealsnatcher():
     def dlImg():
         dlDir = os.environ['tmpDir']
         os.makedirs(dlDir, exist_ok=True)
-        baseUrl = os.environ['baseUrl']
+        localUrl = os.environ['baseUrl']
         target = search.u
-        urlRoute = os.environ['urlRoute']
-        urlr = baseUrl.lower() + urlRoute + target
+        localRoute = os.environ['urlRoute']
+        urlr = localUrl.lower() + localRoute + target
         page = requests.get(urlr)
         time.sleep(1)
         soup = BeautifulSoup(page.content, 'lxml')
         soupd = soup.find('img', alt='[City Seal]')
         soupf = soupd.attrs['src'].replace('../', '')
         urly = urlr.replace(target, '')
-        imgUrl = urly.replace(str(urlRoute),'') + soupf.lower()
+        imgUrl = urly.replace(str(localRoute),'') + soupf.lower()
         print(u'\u001b[32m', imgUrl, '\n')
         filename = imgUrl.split("/")[-1]
         time.sleep(1)
